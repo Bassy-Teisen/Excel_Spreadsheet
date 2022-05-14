@@ -36,12 +36,12 @@ function makeGrid(rows, cols) {
         inputCell.id = cellKey;
         inputCell.placeholder = cellKey;
         inputCell.type = "text"
+        inputCell.addEventListener('change', valueCatcher);
+
         grid.appendChild(inputCell);
         
     }
 }
-
-
 
 
 // create repeating alphabet 
@@ -54,4 +54,35 @@ function convertToNumberingScheme(number) {
       number = (number / 26) >> 0; // quick `floor`
     } while(number > 0);
     return letters;
-  }
+}
+
+
+
+// Capture the value being enter into individual cells
+const inputCollection = document.querySelectorAll('input');
+
+inputCollection.forEach( item => {
+    const inpItem = document.getElementById(item.id)
+})
+
+// check input and place in array
+function inputChecker(key, val) {
+    let answer = false
+    inputArray.forEach( item => {
+        let itemKey = Object.keys(item)
+        const inpValue = document.getElementById(itemKey)
+        if (itemKey == key) {
+            item[itemKey] = val
+        }
+    })
+}
+
+// handle the event and set value in array
+function valueCatcher(e) {
+    let textValue = e.target.value;
+    let inputId = inputCollection.textId = e.target.id;
+    let cellValue = inputChecker(inputId , textValue)
+    if (cellValue == true) {
+
+    }
+}
