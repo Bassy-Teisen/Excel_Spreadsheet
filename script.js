@@ -44,15 +44,15 @@ function makeGrid(rows, cols) {
                     inputCell.value = ans
                 }
             }
-            inputCell.addEventListener('keypress', function(event) {
-                if (event.key === "Enter") {
-                    const ans = sum(event)
-                    console.log(ans)
-                    if (ans) {
-                        inputCell.value = ans
-                    }
+        });
+        inputCell.addEventListener('keypress', function(event) {
+            if (event.key === "Enter") {
+                const ans = sum(event)
+                console.log(ans)
+                if (ans) {
+                    inputCell.value = ans
                 }
-            });
+            }
         });
 
         grid.appendChild(inputCell);
@@ -79,7 +79,7 @@ function convertToNumberingScheme(number) {
 const inputCollection = document.querySelectorAll('input');
 
 // check input and place in array
-function inputChecker(key, val) {
+function inputArrayPusher(key, val) {
     inputArray.forEach( item => {
         let itemKey = Object.keys(item)
         const inpValue = document.getElementById(itemKey)
@@ -93,7 +93,7 @@ function inputChecker(key, val) {
 function valueCatcher(e) {
     let textValue = e.target.value;
     let inputId = inputCollection.textId = e.target.id;
-    let cellValue = inputChecker(inputId , textValue)
+    let cellValue = inputArrayPusher(inputId , textValue)
     if (cellValue == true) {
 
     }
@@ -137,7 +137,7 @@ function inputAdder( first, second) {
 //  need to seprate numbers from letters then subtract the ids number then iterate over each value in column for ans anount of times
 function sum(e) {
     let inputValue = e.target.value
-    let itemKey = e.target.id
+    let itemId = e.target.id
     if (inputValue.includes("=sum")) {
         const removeSum = inputValue.replace('=sum(', '')
         const removeAll = removeSum.replace(')', '')
@@ -179,14 +179,15 @@ function sum(e) {
                 const inputCell = document.getElementById(itemKey)
                 const cellInt = inputCell ? parseInt(inputCell.value) : ""
                 if (itemKey == iteratKey) {
-                    // item[itemKey] = val.toString()
                     if (Number.isInteger(cellInt)) {
                         answer = Math.round(answer) + Math.round(cellInt)
                         
                     }
                 }
             })
+            // item[itemKey] = answer.toString()
         }
+        inputArrayPusher(itemId, answer)
         return answer
 
     }
