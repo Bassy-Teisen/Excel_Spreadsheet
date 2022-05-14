@@ -37,6 +37,15 @@ function makeGrid(rows, cols) {
         inputCell.placeholder = cellKey;
         inputCell.type = "text"
         inputCell.addEventListener('change', valueCatcher);
+        inputCell.addEventListener('keypress', function(event) {
+            if (event.key === "Enter") {
+                console.log(addition(event))
+                const ans = addition(event)
+                if (ans) {
+                    inputCell.value = ans
+                }
+            }
+        });
 
         grid.appendChild(inputCell);
         
@@ -61,18 +70,13 @@ function convertToNumberingScheme(number) {
 // Capture the value being enter into individual cells
 const inputCollection = document.querySelectorAll('input');
 
-inputCollection.forEach( item => {
-    const inpItem = document.getElementById(item.id)
-})
-
 // check input and place in array
 function inputChecker(key, val) {
-    let answer = false
     inputArray.forEach( item => {
         let itemKey = Object.keys(item)
         const inpValue = document.getElementById(itemKey)
         if (itemKey == key) {
-            item[itemKey] = val
+            item[itemKey] = val.toString()
         }
     })
 }
@@ -86,3 +90,42 @@ function valueCatcher(e) {
 
     }
 }
+
+function addition(e) {
+    let inputValue = e.target.value
+    let inputKey = e.target.id
+    let inputAns = ""
+    if (inputValue.includes("=") && inputValue.includes("+")) {
+        
+        const removeEqual = inputValue.replace('=', '')
+        const splitInput = removeEqual.split("+")
+
+        let firstKey = splitInput[0]
+        let secondKey = splitInput[1]
+        let firstNum = 0
+        let secondNum = 0
+
+        inputArray.forEach( item => { 
+            let itemKey = Object.keys(item)
+            if (itemKey == firstKey) {
+                firstNum = Object.values(item)
+            }
+            if (itemKey == secondKey) {
+                secondNum = Object.values(item)
+            }
+        })
+        let ans = inputAdder(secondNum, firstNum)
+        inputAns = inputChecker(inputKey, ans)
+        return ans
+    }
+}
+console.log(inputArray)
+
+//  addition math function 
+function inputAdder( first, second) {
+    let ans = 0
+    ans = Math.round(first) + Math.round(second) 
+    return ans
+}
+
+
