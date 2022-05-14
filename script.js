@@ -189,7 +189,6 @@ function sum(e) {
         }
         inputArrayPusher(itemId, answer)
         return answer
-
     }
 }
 
