@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 const inputArray = []
 
-makeGrid(10, 10)
+makeGrid(20, 20)
 
 
 // create object containing the key value of the input cells
@@ -39,8 +39,15 @@ function makeGrid(rows, cols) {
         inputCell.addEventListener('change', valueCatcher);
         inputCell.addEventListener('keypress', function(event) {
             if (event.key === "Enter") {
-                console.log(addition(event))
                 const ans = addition(event)
+                if (ans) {
+                    inputCell.value = ans
+                }
+            }
+        });
+        inputCell.addEventListener('keypress', function(event) {
+            if (event.key === "Enter") {
+                const ans = sum(event)
                 if (ans) {
                     inputCell.value = ans
                 }
@@ -115,7 +122,6 @@ function addition(e) {
             }
         })
         let ans = inputAdder(secondNum, firstNum)
-        inputAns = inputChecker(inputKey, ans)
         return ans
     }
 }
@@ -129,3 +135,67 @@ function inputAdder( first, second) {
 }
 
 
+//  need to seprate numbers from letters then subtract the ids number then iterate over each value in column for ans anount of times
+function sum(e) {
+    let inputValue = e.target.value
+    let inputId = e.target.id
+    if (inputValue.includes("=sum")) {
+        const removeSum = inputValue.replace('=sum(', '')
+        const removeAll = removeSum.replace(')', '')
+        const splitFirst = removeAll.split(":")
+ // =sum(B1:B17)
+        
+        let containNumbers = []
+        let containCharacters = []
+        let count = 0
+        for (i = 0; i < splitFirst.length; i++) {
+            const splitAll = splitFirst[i].split("")
+            let containNumber = []
+            let containCharacter = []
+            for (x = 0; x < splitAll.length; x++) {
+                const parsed = parseInt(splitAll[x])
+                if (Number.isInteger(parsed)) {
+                    containNumber.push(parsed)
+                } else {
+                    if (typeof(splitAll[x]) == "string")
+                    containCharacter.push(splitAll[x])
+                }
+            }
+            containNumbers.push(containNumber)
+            containCharacters.push(containCharacter)
+        }
+
+        const character = containCharacters[0].join('')
+        const firstNum = containNumbers[1].join('')
+        const secondNum = containNumbers[0].join('')
+        count = Math.round(firstNum) - Math.round(secondNum)
+        let answer = 0
+        
+        // Need to retrieve values of cells using their id which is created by adding to the number
+        for (i = 0; i < count; i++) {
+            let iteratNum = Math.round(secondNum) + Math.round(i)
+            let iteratKey =  character + iteratNum 
+            console.log(iteratKey)
+            inputArray.forEach( item => {
+                let itemKey = Object.keys(item)
+                const inputCell = document.getElementById(itemKey)
+                const cellInt = inputCell ? parseInt(inputCell.value) : ""
+                if (itemKey == iteratKey) {
+                    // item[itemKey] = val.toString()
+                    if (Number.isInteger(cellInt)) {
+                        answer = Math.round(answer) + Math.round(cellInt)
+                        
+                    }
+                }
+            })
+        }
+        console.log(answer)
+        return answer
+    }
+}
+
+// const sumObj = {}
+// sumObj[splitFirst[i]] = parsed
+// console.log(sumObj)
+
+//    =sum(B1:B17)
