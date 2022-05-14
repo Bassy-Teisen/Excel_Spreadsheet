@@ -4,13 +4,42 @@ body {
 }
 
 
+#grid {
+    display: grid;
+    grid-template-columns: repeat(100, 80px);
+    grid-auto-rows: 35px;
+}
+
 #container {
     display: flex;
     flex-direction: column;
 }
 
-#grid {
-    display: grid;
-    grid-template-columns: repeat(20, 80px);
-    grid-auto-rows: 35px;
+#top {
+    display: flex;
+    align-items: center;
+    background-color: green;
+    height: 3rem;
+    
+}
+
+button {
+    height: 70%;
+    margin-left: 2rem;
+}
+
+body {
+    width: 10020px;
+} 
+
+.grey {
+    background-color: lightgrey;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.select {
+    background-color: rgb(192, 245, 192);
+    border-color: green;
 }

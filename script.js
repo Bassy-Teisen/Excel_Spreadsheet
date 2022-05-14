@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 const inputArray = []
 
-makeGrid(20, 20)
+makeGrid(100, 100)
 
 
 // create object containing the key value of the input cells
@@ -22,20 +22,45 @@ function makeInputId(rows, cols) {
 
 // create input elements for grid using the array of key value objects
 function makeGrid(rows, cols) {
+    let sideNum = 0
     makeInputId(rows, cols)
     for (i = 0; i < (rows * cols ); i++) {
-        const cellKey = Object.keys(inputArray[i])
-        const cellValue = Object.values(inputArray[i])
-
+        let cellKey = Object.keys(inputArray[i])
+        let cellValue = Object.values(inputArray[i])
+        
+        console.log(cellKey)
         const inputCell = document.createElement("input");
-
         if (cellValue != "null") {
             inputCell.value = cellValue
         } 
 
+        // create the top and side of the grid from the stored ids for the input cells
+        if (cellKey[0].includes("@")){
+            cellKey = sideNum
+            inputCell.className = "grey"
+            inputCell.disabled = true
+            inputCell.value = cellKey
+            sideNum++
+            if (cellKey == 0 ) {
+                cellKey = "Select All"
+                // input.appendChild(cell).className = "grey"
+                inputCell.classList.remove('grey') 
+                inputCell.disabled = true
+            }
+        } else if (cellKey[0].length == 2 && cellKey[0].includes("0", 1)) {
+            cellKey = convertToNumberingScheme(i )
+            inputCell.disabled = true
+            inputCell.className = "grey"
+            inputCell.value = cellKey
+            inputCell.disabled = true
+        }
+
+
         inputCell.id = cellKey;
         inputCell.placeholder = cellKey;
         inputCell.type = "text"
+
+
         inputCell.addEventListener('change', valueCatcher);
         inputCell.addEventListener('keypress', function(event) {
             if (event.key === "Enter") {
