@@ -44,14 +44,15 @@ function makeGrid(rows, cols) {
                     inputCell.value = ans
                 }
             }
-        });
-        inputCell.addEventListener('keypress', function(event) {
-            if (event.key === "Enter") {
-                const ans = sum(event)
-                if (ans) {
-                    inputCell.value = ans
+            inputCell.addEventListener('keypress', function(event) {
+                if (event.key === "Enter") {
+                    const ans = sum(event)
+                    console.log(ans)
+                    if (ans) {
+                        inputCell.value = ans
+                    }
                 }
-            }
+            });
         });
 
         grid.appendChild(inputCell);
@@ -100,8 +101,6 @@ function valueCatcher(e) {
 
 function addition(e) {
     let inputValue = e.target.value
-    let inputKey = e.target.id
-    let inputAns = ""
     if (inputValue.includes("=") && inputValue.includes("+")) {
         
         const removeEqual = inputValue.replace('=', '')
@@ -138,7 +137,7 @@ function inputAdder( first, second) {
 //  need to seprate numbers from letters then subtract the ids number then iterate over each value in column for ans anount of times
 function sum(e) {
     let inputValue = e.target.value
-    let inputId = e.target.id
+    let itemKey = e.target.id
     if (inputValue.includes("=sum")) {
         const removeSum = inputValue.replace('=sum(', '')
         const removeAll = removeSum.replace(')', '')
@@ -164,7 +163,7 @@ function sum(e) {
             containNumbers.push(containNumber)
             containCharacters.push(containCharacter)
         }
-
+// Need to add option for firstNum and secondNum to be swapped
         const character = containCharacters[0].join('')
         const firstNum = containNumbers[1].join('')
         const secondNum = containNumbers[0].join('')
@@ -175,9 +174,8 @@ function sum(e) {
         for (i = 0; i < count; i++) {
             let iteratNum = Math.round(secondNum) + Math.round(i)
             let iteratKey =  character + iteratNum 
-            console.log(iteratKey)
             inputArray.forEach( item => {
-                let itemKey = Object.keys(item)
+                itemKey = Object.keys(item)
                 const inputCell = document.getElementById(itemKey)
                 const cellInt = inputCell ? parseInt(inputCell.value) : ""
                 if (itemKey == iteratKey) {
@@ -189,13 +187,9 @@ function sum(e) {
                 }
             })
         }
-        console.log(answer)
         return answer
+
     }
 }
-
-// const sumObj = {}
-// sumObj[splitFirst[i]] = parsed
-// console.log(sumObj)
 
 //    =sum(B1:B17)
