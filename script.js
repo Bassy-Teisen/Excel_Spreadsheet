@@ -114,6 +114,11 @@ function refreshCells() {
     reload = location.reload();
 }
 
+// function that reloads page without clearing local storage
+function reloadPage() {
+    reload = location.reload();
+}
+
 // function that adds and removes bold font
 function addBold(e) { 
     let target = e.target

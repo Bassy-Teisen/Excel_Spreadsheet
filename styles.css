@@ -3,6 +3,24 @@ body {
     position: relative;
 }
 
+#refresh {
+    background-color: lightblue;
+    border-radius: 8px;
+    box-shadow: 1px 1px;
+    cursor: pointer;
+}
+
+#reload {
+    background-color: lightcoral;
+    border-radius: 8px;
+    box-shadow: 1px 1px;
+    cursor: pointer;
+}
+
+.cell {
+    cursor: pointer;
+}
+
 .cell:focus {
     background-color: lightgreen;
 }
