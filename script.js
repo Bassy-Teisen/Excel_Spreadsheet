@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 const inputArray = []
 
-makeGrid(100, 100)
+makeGrid(20, 20)
 
 
 // create object containing the key value of the input cells
@@ -17,7 +17,6 @@ function makeInputId(rows, cols) {
         }
     }
 }
-
 
 
 // create input elements for grid using the array of key value objects
@@ -66,7 +65,6 @@ function makeGrid(rows, cols) {
         inputCell.placeholder = cellKey;
         inputCell.type = "text"
 
-
         inputCell.addEventListener('change', valueCatcher);
         inputCell.addEventListener('keypress', function(event) {
             if (event.key === "Enter") {
@@ -84,12 +82,57 @@ function makeGrid(rows, cols) {
                     inputCell.value = ans
                 }
             }
-        });
 
+            // handles the font changes
+            if (event.code === "KeyB" && event.ctrlKey) {
+                addBold(event)
+            }
+            if (event.code === "KeyI" && event.ctrlKey) {
+                addItalic(event)
+            }
+            if (event.code === "KeyU" && event.ctrlKey  && event.shiftKey) {
+                addUnderline(event)
+            }
+        });
         grid.appendChild(inputCell);
         
     }
 }
+
+// function that adds and removes bold font
+function addBold(e) { 
+    let target = e.target
+    console.log(e.target)
+
+    if(target.style.fontWeight=="bold")
+      target.style.fontWeight="normal";
+    else
+      target.style.fontWeight="bold";
+}
+
+// function that adds and removes italic font
+italic
+function addItalic(e) { 
+    let target = e.target
+    console.log(e.target)
+
+    if(target.style.fontStyle=="italic")
+      target.style.fontStyle="normal";
+    else
+      target.style.fontStyle="italic";
+}
+
+// function that adds and removes underline font
+function addUnderline(e) { 
+    let target = e.target
+    console.log(e.target)
+
+    if(target.style.textDecoration =="underline")
+      target.style.textDecoration="none";
+    else
+      target.style.textDecoration="underline";
+}
+
 
 
 // create repeating alphabet 
@@ -224,3 +267,4 @@ function sum(e) {
 }
 
 //    =sum(B1:B17)
+
