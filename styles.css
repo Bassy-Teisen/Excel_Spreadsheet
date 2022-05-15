@@ -3,6 +3,9 @@ body {
     position: relative;
 }
 
+.cell:focus {
+    background-color: lightgreen;
+}
 
 #grid {
     display: grid;

@@ -65,6 +65,10 @@ function makeGrid(rows, cols) {
             }
         } 
 
+        if (!inputCell.className) {
+            inputCell.className = "cell"
+        }
+
 
         inputCell.id = cellKey;
         inputCell.placeholder = cellKey;
