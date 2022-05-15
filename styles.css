@@ -3,10 +3,31 @@ body {
     position: relative;
 }
 
+#refresh {
+    background-color: lightblue;
+    border-radius: 8px;
+    box-shadow: 1px 1px;
+    cursor: pointer;
+}
+
+#reload {
+    background-color: lightcoral;
+    border-radius: 8px;
+    box-shadow: 1px 1px;
+    cursor: pointer;
+}
+
+.cell {
+    cursor: pointer;
+}
+
+.cell:focus {
+    background-color: rgb(192, 245, 192);
+}
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(20, 80px);
+    grid-template-columns: repeat(100, 80px);
     grid-auto-rows: 35px;
 }
 
@@ -29,7 +50,7 @@ button {
 }
 
 body {
-    width: 10020px;
+    width: 8030px;
 } 
 
 .grey {
@@ -39,7 +60,3 @@ body {
     font-size: 1.5rem;
 }
 
-.select {
-    background-color: rgb(192, 245, 192);
-    border-color: green;
-}
