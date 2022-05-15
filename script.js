@@ -104,6 +104,12 @@ function makeGrid(rows, cols) {
     }
 }
 
+// function that clears local storage
+function refreshCells() {
+    localStorage.clear()
+    reload = location.reload();
+}
+
 // function that adds and removes bold font
 function addBold(e) { 
     let target = e.target
@@ -136,6 +142,7 @@ function addUnderline(e) {
     else
       target.style.textDecoration="underline";
 }
+
 
 
 
@@ -221,7 +228,6 @@ function sum(e) {
         const removeSum = inputValue.replace('=sum(', '')
         const removeAll = removeSum.replace(')', '')
         const splitFirst = removeAll.split(":")
- // =sum(B1:B17)
         
         let containNumbers = []
         let containCharacters = []
@@ -271,5 +277,4 @@ function sum(e) {
     }
 }
 
-//    =sum(B1:B17)
 
