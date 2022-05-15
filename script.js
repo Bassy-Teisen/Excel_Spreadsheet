@@ -30,8 +30,13 @@ function makeGrid(rows, cols) {
         
         // console.log(cellKey)
         const inputCell = document.createElement("input");
-        if (cellValue != "null") {
-            inputCell.value = cellValue
+        
+        // Get input from local storage
+        const storage = localStorage.getItem(cellKey)
+        
+        // if the input has value from sotrage add it here
+        if (storage) {
+            inputCell.value = storage
         } 
 
         // Once a input cell is reached this stops they grey class being applied
@@ -158,6 +163,8 @@ function inputArrayPusher(key, val) {
         const inpValue = document.getElementById(itemKey)
         if (itemKey == key) {
             item[itemKey] = val.toString()
+            // set the local storage
+            localStorage.setItem(itemKey, val)
         }
     })
 }
@@ -197,7 +204,6 @@ function addition(e) {
         return ans
     }
 }
-console.log(inputArray)
 
 //  addition math function 
 function inputAdder( first, second) {
