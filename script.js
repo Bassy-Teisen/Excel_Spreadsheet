@@ -3,8 +3,7 @@ const inputArray = []
 
 makeGrid(100, 100)
 
-
-// create object containing the key value of the input cells
+// create object containing the key value of the input cells and push into arrray
 function makeInputId(rows, cols) {
 
     for (r = 0; r < (rows + 1 ); r++) {
@@ -19,14 +18,13 @@ function makeInputId(rows, cols) {
 }
 
 
-// create input elements for grid using the array of key value objects
+// create input elements for grid using the array of key value objects also retrieving values from local storage
 function makeGrid(rows, cols) {
     let sideNum = 0
     let top = true
     makeInputId(rows, cols)
     for (i = 0; i < (rows * cols ); i++) {
         let cellKey = Object.keys(inputArray[i])
-        let cellValue = Object.values(inputArray[i])
         
         const inputCell = document.createElement("input");
         
@@ -65,10 +63,10 @@ function makeGrid(rows, cols) {
             }
         } 
 
+        // adds cell class to input elements that capture input
         if (!inputCell.className) {
             inputCell.className = "cell"
         }
-
 
         inputCell.id = cellKey;
         inputCell.placeholder = cellKey;
@@ -102,8 +100,8 @@ function makeGrid(rows, cols) {
                 addUnderline(event)
             }
         });
+        // creates grid 
         grid.appendChild(inputCell);
-        
     }
 }
 
@@ -121,17 +119,15 @@ function reloadPage() {
 // function that adds and removes bold font
 function addBold(e) { 
     let target = e.target
-
     if(target.style.fontWeight=="bold")
       target.style.fontWeight="normal";
     else
       target.style.fontWeight="bold";
 }
 
-// function that adds and removes italic font italic
+// function that adds and removes italic font 
 function addItalic(e) { 
     let target = e.target
-
     if(target.style.fontStyle=="italic")
       target.style.fontStyle="normal";
     else
@@ -141,15 +137,11 @@ function addItalic(e) {
 // function that adds and removes underline font
 function addUnderline(e) { 
     let target = e.target
-
     if(target.style.textDecoration =="underline")
       target.style.textDecoration="none";
     else
       target.style.textDecoration="underline";
 }
-
-
-
 
 // create repeating alphabet 
 function convertToNumberingScheme(number) {
@@ -162,8 +154,6 @@ function convertToNumberingScheme(number) {
     } while(number > 0);
     return letters;
 }
-
-
 
 // Capture the value being enter into individual cells
 const inputCollection = document.querySelectorAll('input');
@@ -185,12 +175,10 @@ function inputArrayPusher(key, val) {
 function valueCatcher(e) {
     let textValue = e.target.value;
     let inputId = inputCollection.textId = e.target.id;
-    let cellValue = inputArrayPusher(inputId , textValue)
-    if (cellValue == true) {
-
-    }
+    inputArrayPusher(inputId , textValue)
 }
 
+// recieves the ids of the cells being added and passes their values to inputAdder
 function addition(e) {
     let inputValue = e.target.value
     let inputId = e.target.id
@@ -209,13 +197,9 @@ function addition(e) {
             let itemKey = Object.keys(item)
             if (itemKey == firstKey) {
                 firstNum = Object.values(item)
-
-                // validation for user input
-
             }
             if (itemKey == secondKey) {
                 secondNum = Object.values(item)
-
             }
         })
         
@@ -226,14 +210,14 @@ function addition(e) {
     }
 }
 
+// basic validation for user entering integers for math functions
 function validate(num) {
     if (Number.isInteger(num) == false) {
         alert("Must enter an integer")
     }
 }
 
-
-//  addition math function 
+//  adds two values and returns answer
 function inputAdder( first, second) {
     let ans = 0
     ans = Math.round(first) + Math.round(second) 
@@ -241,7 +225,7 @@ function inputAdder( first, second) {
 }
 
 
-//  need to seprate numbers from letters then subtract the ids number then iterate over each value in column for ans anount of times
+//  seprates numbers from letters then subtract the ids number, next iterates over each value in column for ans anount of times
 function sum(e) {
     let inputValue = e.target.value
     let itemId = e.target.id
@@ -269,7 +253,7 @@ function sum(e) {
             containNumbers.push(containNumber)
             containCharacters.push(containCharacter)
         }
-// Need to add option for firstNum and secondNum to be swapped
+
         const character = containCharacters[0].join('')
         const firstNum = containNumbers[1].join('')
         const secondNum = containNumbers[0].join('')
@@ -287,11 +271,9 @@ function sum(e) {
                 if (itemKey == iteratKey) {
                     if (Number.isInteger(cellInt)) {
                         answer = Math.round(answer) + Math.round(cellInt)
-                        
                     }
                 }
             })
-            // item[itemKey] = answer.toString()
         }
         inputArrayPusher(itemId, answer)
         return answer
