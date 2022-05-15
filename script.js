@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 const inputArray = []
 
-makeGrid(100, 100)
+makeGrid(20, 20)
 
 
 // create object containing the key value of the input cells
@@ -28,7 +28,7 @@ function makeGrid(rows, cols) {
         let cellKey = Object.keys(inputArray[i])
         let cellValue = Object.values(inputArray[i])
         
-        console.log(cellKey)
+        // console.log(cellKey)
         const inputCell = document.createElement("input");
         if (cellValue != "null") {
             inputCell.value = cellValue

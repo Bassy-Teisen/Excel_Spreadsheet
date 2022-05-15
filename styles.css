@@ -6,7 +6,7 @@ body {
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(100, 80px);
+    grid-template-columns: repeat(20, 80px);
     grid-auto-rows: 35px;
 }
 
