@@ -23,19 +23,31 @@ function makeInputId(rows, cols) {
 // create input elements for grid using the array of key value objects
 function makeGrid(rows, cols) {
     let sideNum = 0
+    let top = true
     makeInputId(rows, cols)
     for (i = 0; i < (rows * cols ); i++) {
         let cellKey = Object.keys(inputArray[i])
         let cellValue = Object.values(inputArray[i])
         
-        console.log(cellKey)
+        // console.log(cellKey)
         const inputCell = document.createElement("input");
         if (cellValue != "null") {
             inputCell.value = cellValue
         } 
 
+        // Once a input cell is reached this stops they grey class being applied
+        if (cellKey == "A1") {
+            top = false
+        }
+
+        // applies the grey class to top row for nasic styling and disabling intput
+        if (top == true) {
+            inputCell.className = "grey"
+            inputCell.disabled = true
+            inputCell.value = convertToNumberingScheme(i )
+        }
         // create the top and side of the grid from the stored ids for the input cells
-        if (cellKey[0].includes("@")){
+        if (cellKey[0].includes("@") ){
             cellKey = sideNum
             inputCell.className = "grey"
             inputCell.disabled = true
@@ -47,13 +59,7 @@ function makeGrid(rows, cols) {
                 inputCell.classList.remove('grey') 
                 inputCell.disabled = true
             }
-        } else if (cellKey[0].length == 2 && cellKey[0].includes("0", 1)) {
-            cellKey = convertToNumberingScheme(i )
-            inputCell.disabled = true
-            inputCell.className = "grey"
-            inputCell.value = cellKey
-            inputCell.disabled = true
-        }
+        } 
 
 
         inputCell.id = cellKey;
