@@ -110,8 +110,7 @@ function addBold(e) {
       target.style.fontWeight="bold";
 }
 
-// function that adds and removes italic font
-italic
+// function that adds and removes italic font italic
 function addItalic(e) { 
     let target = e.target
     console.log(e.target)
