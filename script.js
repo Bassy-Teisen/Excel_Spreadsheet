@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 const inputArray = []
 
-makeGrid(20, 20)
+makeGrid(100, 100)
 
 
 // create object containing the key value of the input cells
@@ -60,8 +60,7 @@ function makeGrid(rows, cols) {
             inputCell.value = cellKey
             sideNum++
             if (cellKey == 0 ) {
-                inputCell.value = "Select All"
-                inputCell.classList.remove('grey') 
+                inputCell.value = " "
                 inputCell.disabled = false
             }
         } 
@@ -298,5 +297,7 @@ function sum(e) {
         return answer
     }
 }
+
+
 
 
