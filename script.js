@@ -28,7 +28,6 @@ function makeGrid(rows, cols) {
         let cellKey = Object.keys(inputArray[i])
         let cellValue = Object.values(inputArray[i])
         
-        // console.log(cellKey)
         const inputCell = document.createElement("input");
         
         // Get input from local storage
@@ -36,7 +35,10 @@ function makeGrid(rows, cols) {
         
         // if the input has value from sotrage add it here
         if (storage) {
+            const inputObject = {}
             inputCell.value = storage
+            inputObject[cellKey] = storage
+            inputArray[i] = inputObject
         } 
 
         // Once a input cell is reached this stops they grey class being applied
@@ -58,10 +60,9 @@ function makeGrid(rows, cols) {
             inputCell.value = cellKey
             sideNum++
             if (cellKey == 0 ) {
-                cellKey = "Select All"
-                // input.appendChild(cell).className = "grey"
+                inputCell.value = "Select All"
                 inputCell.classList.remove('grey') 
-                inputCell.disabled = true
+                inputCell.disabled = false
             }
         } 
 
@@ -86,7 +87,6 @@ function makeGrid(rows, cols) {
         inputCell.addEventListener('keypress', function(event) {
             if (event.key === "Enter") {
                 const ans = sum(event)
-                console.log(ans)
                 if (ans) {
                     inputCell.value = ans
                 }
@@ -122,7 +122,6 @@ function reloadPage() {
 // function that adds and removes bold font
 function addBold(e) { 
     let target = e.target
-    console.log(e.target)
 
     if(target.style.fontWeight=="bold")
       target.style.fontWeight="normal";
@@ -133,7 +132,6 @@ function addBold(e) {
 // function that adds and removes italic font italic
 function addItalic(e) { 
     let target = e.target
-    console.log(e.target)
 
     if(target.style.fontStyle=="italic")
       target.style.fontStyle="normal";
@@ -144,7 +142,6 @@ function addItalic(e) {
 // function that adds and removes underline font
 function addUnderline(e) { 
     let target = e.target
-    console.log(e.target)
 
     if(target.style.textDecoration =="underline")
       target.style.textDecoration="none";
@@ -197,6 +194,7 @@ function valueCatcher(e) {
 
 function addition(e) {
     let inputValue = e.target.value
+    let inputId = e.target.id
     if (inputValue.includes("=") && inputValue.includes("+")) {
         
         const removeEqual = inputValue.replace('=', '')
@@ -208,18 +206,33 @@ function addition(e) {
         let secondNum = 0
 
         inputArray.forEach( item => { 
+            
             let itemKey = Object.keys(item)
             if (itemKey == firstKey) {
                 firstNum = Object.values(item)
+
+                // validation for user input
+
             }
             if (itemKey == secondKey) {
                 secondNum = Object.values(item)
+
             }
         })
+        
         let ans = inputAdder(secondNum, firstNum)
+        localStorage.setItem(inputId, ans)
+        validate(ans)
         return ans
     }
 }
+
+function validate(num) {
+    if (Number.isInteger(num) == false) {
+        alert("Must enter an integer")
+    }
+}
+
 
 //  addition math function 
 function inputAdder( first, second) {
